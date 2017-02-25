@@ -17,6 +17,7 @@ Contents:
 
    introduction
    command
+   connection
 
 Indices and tables
 ==================
