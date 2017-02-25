@@ -71,13 +71,22 @@
 
 .. code-block:: bash
 	:linenos:
-
-	import /usr/bin/ as ub
 	
+	import /usr/bin/ as ub
 	ub.seq '1' '5'
 
 　接頭語は、同じディレクトリにあるコマンドを同じグループに結びつける役割をします。この仕様は、例えばLinuxとMacで異なるディレクトリにコマンドがある際のポータビリティを損ねます。しかし、例えばGlueLang用のポータビリティのあるコマンドを同じディレクトリに置いて使うという使い方を想定すると、逆にポータビリティを確保できます。
-　
-　
+
+　もっと「雑に」コマンドを使いたいときには、別のディレクトリを同じ接頭語に結びつけることもできます。
+
+.. code-block:: bash
+	:linenos:
+	
+	import /bin/ as b
+	import /usr/bin/ as b
+	
+	b.echo 'hoge'
+	b.seq 1 10
+
 	
 .. [#internal_echo] echoはGlueLangの内部コマンドに存在するので、echoだけでも使えます。ただし、仕様上、in.echoと内部コマンドを示す接頭語をつけるべきでないかと検討中です。
