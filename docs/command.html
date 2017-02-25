@@ -52,8 +52,9 @@
 abc
 </pre></div>
 </div>
+</div>
 <div class="section" id="id3">
-<h3>2.1.1. パスの扱い<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h2>2.2. パスの扱い<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　デフォルトの状態でのGlueLangは、
 シェルよりも書き方が制限されます。
 まず、次の例はフルパスでcat(1)を呼び出す例です。</p>
@@ -99,15 +100,46 @@ Parse error at line 1, char 1
         pid 82246
 </pre></div>
 </td></tr></table></div>
-<p>　この挙動は、GlueLangが暗黙理にコマンドのパスを設定しないことを示しています。
-この仕様の意図は呼び出すコマンドを厳密に指定するためです。</p>
+<p>　この挙動は、GlueLangが暗黙理にコマンドのパスを設定しないことを示しています。この仕様の意図は呼び出すコマンドを厳密に指定するためです。</p>
+<p>　フルパスでコマンドを指定したくないときは、次のようにimport文を使います。ディレクトリ <code class="docutils literal"><span class="pre">/usr/bin/</span></code> を <code class="docutils literal"><span class="pre">ub</span></code> という名前に結びつけて、 <code class="docutils literal"><span class="pre">/usr/bin/</span></code> にあるseqコマンドにubという接頭語をつけて呼び出しています。</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre>import /usr/bin/ as ub
+ub.seq <span class="s1">&#39;1&#39;</span> <span class="s1">&#39;5&#39;</span>
+</pre></div>
+</td></tr></table></div>
+<p>　接頭語は、同じディレクトリにあるコマンドを同じグループに結びつける役割をします。この仕様は、例えばLinuxとMacで異なるディレクトリにコマンドがある際のポータビリティを損ねます。しかし、例えばGlueLang用のポータビリティのあるコマンドを同じディレクトリに置いて使うという使い方を想定すると、逆にポータビリティを確保できます。</p>
+<p>　もっと「雑に」コマンドを使いたいときには、別のディレクトリを同じ接頭語に結びつけることもできます。</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre>import /bin/ as b
+import /usr/bin/ as b
+
+b.echo <span class="s1">&#39;hoge&#39;</span>
+b.seq <span class="m">1</span> 10
+</pre></div>
+</td></tr></table></div>
+<p>この例では、二つのディレクトリのコマンドを同じ接頭語 <code class="docutils literal"><span class="pre">b</span></code> をつけて使っています。</p>
+<p>　もっと横着をする方法もあります。次の例は環境変数PATHを読み込んで
+接頭語なしでコマンドを使う方法です。
+使い捨てのスクリプトを書くときにはこのように楽に書いた方が良いでしょう。</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
+awk <span class="s1">&#39;BEGIN{a=1;print a,a}&#39;</span>
+</pre></div>
+</td></tr></table></div>
+<p>このコードは次のように動作します。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue path_env.glue
+<span class="m">1</span> 1
+</pre></div>
+</div>
 <table class="docutils footnote" frame="void" id="internal-echo" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id4">[1]</a></td><td>echoはGlueLangの内部コマンドに存在するので、echoだけでも使えます。ただし、仕様上、in.echoと内部コマンドを示す接頭語をつけるべきでないかと検討中です。</td></tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 
@@ -120,10 +152,8 @@ Parse error at line 1, char 1
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">2. コマンドの呼び出し</a><ul>
-<li><a class="reference internal" href="#id2">2.1. 単純な呼び出し</a><ul>
-<li><a class="reference internal" href="#id3">2.1.1. パスの扱い</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#id2">2.1. 単純な呼び出し</a></li>
+<li><a class="reference internal" href="#id3">2.2. パスの扱い</a></li>
 </ul>
 </li>
 </ul>
