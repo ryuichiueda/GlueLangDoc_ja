@@ -70,7 +70,8 @@ abc
 </pre></div>
 </div>
 <p>実行すると次のようにエラーが出ます。
-<code class="docutils literal"><span class="pre">Unknown</span> <span class="pre">token</span></code> とあるように、 <code class="docutils literal"><span class="pre">cat</span></code> が認識されていません。</p>
+<code class="docutils literal"><span class="pre">Unknown</span> <span class="pre">token</span></code> とあるように、 <code class="docutils literal"><span class="pre">cat</span></code> が認識されていません
+<a class="footnote-reference" href="#internal-echo" id="id4">[1]</a> 。</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -85,7 +86,7 @@ abc
 12
 13</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>glue command2
 glue: script <span class="nb">read </span>error
-uedamb:examples ueda<span class="nv">$ </span>glue command2_ng.glue
+<span class="nv">$ </span>glue command2_ng.glue
 
 Parse error at line 1, char 1
         line1: cat <span class="s1">&#39;/etc/resolv.conf&#39;</span>
@@ -98,6 +99,14 @@ Parse error at line 1, char 1
         pid 82246
 </pre></div>
 </td></tr></table></div>
+<p>　この挙動は、GlueLangが暗黙理にコマンドのパスを設定しないことを示しています。
+この仕様の意図は呼び出すコマンドを厳密に指定するためです。</p>
+<table class="docutils footnote" frame="void" id="internal-echo" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[1]</a></td><td>echoはGlueLangの内部コマンドに存在するので、echoだけでも使えます。ただし、仕様上、in.echoと内部コマンドを示す接頭語をつけるべきでないかと検討中です。</td></tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>

@@ -44,14 +44,15 @@
 	cat '/etc/resolv.conf'
 
 実行すると次のようにエラーが出ます。
-``Unknown token`` とあるように、 ``cat`` が認識されていません。
+``Unknown token`` とあるように、 ``cat`` が認識されていません
+[#internal_echo]_ 。
 
 .. code-block:: bash
 	:linenos:
 
 	$ glue command2
 	glue: script read error
-	uedamb:examples ueda$ glue command2_ng.glue 
+	$ glue command2_ng.glue 
 	
 	Parse error at line 1, char 1
 		line1: cat '/etc/resolv.conf'
@@ -63,4 +64,7 @@
 		exit_status 1
 		pid 82246
 	
+　この挙動は、GlueLangが暗黙理にコマンドのパスを設定しないことを示しています。
+この仕様の意図は呼び出すコマンドを厳密に指定するためです。
 	
+.. [#internal_echo] echoはGlueLangの内部コマンドに存在するので、echoだけでも使えます。ただし、仕様上、in.echoと内部コマンドを示す接頭語をつけるべきでないかと検討中です。
