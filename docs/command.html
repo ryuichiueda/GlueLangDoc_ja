@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>コマンドの呼び出し &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
+    <title>2. コマンドの呼び出し &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="top" title="GlueLangDoc_jp 0.0.1 ドキュメント" href="index.html" />
-    <link rel="prev" title="はじめに" href="introduction.html" />
+    <link rel="prev" title="1. はじめに" href="introduction.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -39,18 +39,65 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>コマンドの呼び出し<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<h1>2. コマンドの呼び出し<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="id2">
-<h2>単純な呼び出し<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>一番単純な呼び出しは次のようなものです。
+<h2>2.1. 単純な呼び出し<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　一番単純な呼び出しは次のようなものです。
 ファイル名は <code class="docutils literal"><span class="pre">command.glue</span></code> です。</p>
 <div class="highlight-bash"><div class="highlight"><pre>/bin/echo <span class="s1">&#39;abc&#39;</span>
 </pre></div>
 </div>
-<p>これを次のように呼び出すと、echoが実行できます。</p>
+<p>　これを次のように呼び出すと、echoが実行できます。</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue command.glue
 abc
 </pre></div>
+</div>
+<div class="section" id="id3">
+<h3>2.1.1. パスの扱い<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>　デフォルトの状態でのGlueLangは、
+シェルよりも書き方が制限されます。
+まず、次の例はフルパスでcat(1)を呼び出す例です。</p>
+<ul class="simple">
+<li>Fig.: command2.glue</li>
+</ul>
+<p>これを実行すると、 <code class="docutils literal"><span class="pre">/etc/resolv.conf</span></code> がcatされます。
+実行結果は割愛します。</p>
+<p>　一方で、通常のBシェルのように次のように書いたスクリプトはどうでしょうか。</p>
+<ul class="simple">
+<li>Fig.: command2.glue</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre>cat <span class="s1">&#39;/etc/resolv.conf&#39;</span>
+</pre></div>
+</div>
+<p>実行すると次のようにエラーが出ます。
+<code class="docutils literal"><span class="pre">Unknown</span> <span class="pre">token</span></code> とあるように、 <code class="docutils literal"><span class="pre">cat</span></code> が認識されていません。</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>glue command2
+glue: script <span class="nb">read </span>error
+uedamb:examples ueda<span class="nv">$ </span>glue command2_ng.glue
+
+Parse error at line 1, char 1
+        line1: cat <span class="s1">&#39;/etc/resolv.conf&#39;</span>
+               ^
+
+        Unknown token
+
+        process_level 0
+        exit_status 1
+        pid 82246
+</pre></div>
+</td></tr></table></div>
 </div>
 </div>
 </div>
@@ -63,8 +110,11 @@ abc
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">コマンドの呼び出し</a><ul>
-<li><a class="reference internal" href="#id2">単純な呼び出し</a></li>
+<li><a class="reference internal" href="#">2. コマンドの呼び出し</a><ul>
+<li><a class="reference internal" href="#id2">2.1. 単純な呼び出し</a><ul>
+<li><a class="reference internal" href="#id3">2.1.1. パスの扱い</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -72,7 +122,7 @@ abc
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="introduction.html" title="前の章へ">はじめに</a></li>
+      <li>Previous: <a href="introduction.html" title="前の章へ">1. はじめに</a></li>
   </ul></li>
 </ul>
 </div>
