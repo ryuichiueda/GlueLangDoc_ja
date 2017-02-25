@@ -6,6 +6,9 @@
 スクリプティングシェルGlueLang
 ==========================================
 
+* ソースコードのリポジトリ: https://github.com/ryuichiueda/GlueLang
+* このドキュメントのリポジトリ: https://github.com/ryuichiueda/GlueLangDoc_ja
+
 Contents:
 
 .. toctree::
