@@ -1,0 +1,2 @@
+# GlueLangDoc_ja
+GlueLangのドキュメント
