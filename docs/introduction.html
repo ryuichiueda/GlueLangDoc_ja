@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>はじめに &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="GlueLangDoc_jp 0.0.1 ドキュメント" href="index.html" />
+    <link rel="prev" title="スクリプティングシェルGlueLang" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>はじめに<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="gluelang">
+<h2>GlueLangとは<a class="headerlink" href="#gluelang" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>GlueLangは、「きれいな」シェルスクリプトを書くための言語として筆者が開発している言語です。
+「きれいな」は筆者の主観ですが、次のようなことを目的としてこの言語を作成しています。</p>
+<ul>
+<li><p class="first">他の言語とシェルとの使用目的の違いを明確にする</p>
+<p>シェルは、プロセスの中の挙動を記述する一般的なプログラミング言語と異なり、ファイルやプロセスなど、一階層上のコンピュータのリソースを扱うためのものです。しかし、このことはコンピュータサイエンスを学習した一部の人以外は強く意識をすることはありません。また、Cシェルのように、違いを文法を共通化して、そのような違いを埋めようとした試みもかつてありましたが、残念ながらうまく行ったとは言えません。違うものを無理に似せる必要はありません。そこで、「プロセス」「ファイル」「（文字列を格納する）メモリ」など、リソースを使用していることが理解できる言語を作ろうとしています。</p>
+</li>
+<li><p class="first">書き方の整理</p>
+</li>
+</ul>
+<blockquote>
+<div>現状のBシェル系の記法は個人的にあまり好きではありません。また、特にテキスト処理においてパイプラインを多用すると、シェルは関数型言語の様相を見せます。そこで、Haskellのような記法でスクリプトを書くことで、すっきりとした記述でシェルスクリプトが書けるのではないかと考えています。GlueLangはその実験のための言語でもあります。</div></blockquote>
+<ul>
+<li><p class="first">その他の付加価値</p>
+<p>ジョブ管理や中間ファイルの扱いの簡略化。コマンドを通常のシェルのようにPATHでフラットに管理するのではなく、パッケージのように階層構造を持たせる、等。</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">はじめに</a><ul>
+<li><a class="reference internal" href="#gluelang">GlueLangとは</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="前の章へ">スクリプティングシェルGlueLang</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/introduction.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Ryuichi Ueda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/introduction.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
