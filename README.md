@@ -1,2 +1,5 @@
 # GlueLangDoc_ja
-GlueLangのドキュメント
+
+このリポジトリーのドキュメントは
+https://ryuichiueda.github.io/GlueLangDoc_ja/
+で閲覧できます。
