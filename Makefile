@@ -27,6 +27,7 @@ html:
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 	rm -rf ./docs
 	mv _build/html ./docs
+	touch ./docs/.nojekyll
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
