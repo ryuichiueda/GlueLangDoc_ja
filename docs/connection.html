@@ -43,7 +43,12 @@
 <div class="section" id="id2">
 <h2>3.1. パイプライン<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　パイプの記号は <code class="docutils literal"><span class="pre">&gt;&gt;=</span></code> です。
-次のように使います。</p>
+<code class="docutils literal"><span class="pre">|</span></code> と比較すると打つのが面倒ですが、
+一方でスクリプトの中で目立つので、
+よく見落とされる <code class="docutils literal"><span class="pre">|</span></code> よりは分かりやすいだろうという意図です。
+また、厳密な裏付けはありませんが、Haskellの <code class="docutils literal"><span class="pre">&gt;&gt;=</span></code> と
+パイプの挙動は似ているので、この記号を使用しています。</p>
+<p>　パイプは次のように使います。</p>
 <div class="highlight-bash"><div class="highlight"><pre>/usr/bin/seq <span class="s1">&#39;1&#39;</span> <span class="s1">&#39;5&#39;</span> &gt;&gt;<span class="o">=</span> /usr/bin/tac
 <span class="c">#Macの場合: /usr/bin/seq &#39;1&#39; &#39;5&#39; &gt;&gt;= /usr/bin/tail &#39;-r&#39;</span>
 </pre></div>
@@ -56,6 +61,29 @@
 3
 2
 1
+</pre></div>
+</div>
+<p>　また、次のように改行することもできます。</p>
+<div class="highlight-bash"><div class="highlight"><pre>/usr/bin/seq <span class="s1">&#39;1&#39;</span> <span class="s1">&#39;5&#39;</span>
+&gt;&gt;<span class="o">=</span> /usr/bin/tail -r
+
+<span class="c">#これでもOK</span>
+/usr/bin/seq <span class="s1">&#39;1&#39;</span> <span class="s1">&#39;5&#39;</span> &gt;&gt;<span class="o">=</span>
+/usr/bin/tail -r
+</pre></div>
+</div>
+</div>
+<div class="section" id="and">
+<h2>3.2. AND記号<a class="headerlink" href="#and" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　Bシェル系の <code class="docutils literal"><span class="pre">&amp;&amp;</span></code> に相当する記号は <code class="docutils literal"><span class="pre">&gt;&gt;</span></code> です。
+これもHaskellに由来します。次のように使います。</p>
+<div class="highlight-bash"><div class="highlight"><pre>/bin/echo <span class="s1">&#39;a&#39;</span> &gt;&gt; /bin/echo <span class="s1">&#39;b&#39;</span> &gt;&gt; /bin/echo <span class="s1">&#39;c&#39;</span>
+</pre></div>
+</div>
+<p>このコードを <code class="docutils literal"><span class="pre">and.glue</span></code> というファイルに保存して実行した時の出力を示します。</p>
+<div class="highlight-bash"><div class="highlight"><pre>a
+b
+c
 </pre></div>
 </div>
 </div>
@@ -71,6 +99,7 @@
   <ul>
 <li><a class="reference internal" href="#">3. コマンドの接続</a><ul>
 <li><a class="reference internal" href="#id2">3.1. パイプライン</a></li>
+<li><a class="reference internal" href="#and">3.2. AND記号</a></li>
 </ul>
 </li>
 </ul>
