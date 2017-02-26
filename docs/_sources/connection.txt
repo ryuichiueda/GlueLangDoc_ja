@@ -117,3 +117,22 @@ OR記号
 バグ
 ------------------------------------------
 
+　次のように二つ ``!>`` をつなげた時の挙動が環境によって異なるバグが発生して、取りきれていません。
+
+Fig.: or_bug.glue 
+
+.. code-block:: bash
+
+        import PATH
+        false !> echo 'b' !> echo 'c'
+
+.. code-block:: bash
+
+        #Travis 上
+        $ glue ./or_bug.glue 
+        b
+        c
+        #Ubuntu 16.04 Server, macOS Sierra
+        $ glue ./or_bug.glue 
+        b
+
