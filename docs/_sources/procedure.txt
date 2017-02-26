@@ -23,4 +23,23 @@
 	
 	$ glue proc1.glue 
 	HELLO
+
+　長いものはdoをつけて改行し、インデントを合わせて記述します。
 	
+.. code-block:: bash
+	:linenos:
+	
+	$ cat proc2.glue 
+	proc hoge = do
+	  /bin/echo 'abc' >>= /usr/bin/rev
+	  /bin/echo 'OK'
+	
+	this.hoge
+
+このスクリプトの出力は次のようになります。
+
+.. code-block:: bash
+
+	$ glue proc2.glue 
+	cba
+	OK
