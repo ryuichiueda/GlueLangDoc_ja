@@ -149,6 +149,31 @@ OK
 </pre></div>
 </td></tr></table></div>
 </div>
+<div class="section" id="id2">
+<h2>9.3. 制御構文(制御演算子？)の案<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　内部コマンドでなく、文法に組み込むときの案を並べておきます。
+<code class="docutils literal"><span class="pre">xargs(1)</span></code> 等を使いこなせばいらないような気もしますが、それは言っちゃいけないような気がします。</p>
+<div class="section" id="id3">
+<h3>9.3.1. while文<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>　 <code class="docutils literal"><span class="pre">&lt;?&gt;</span></code> はHaskellの記号と紛らわしいので <code class="docutils literal"><span class="pre">&lt;&gt;</span></code> でもよいかもしれない。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">###Aが終了ステータス0の間、Bを実行###</span>
+A &lt;?&gt; B
+<span class="c">###Aが終了ステータス0の間実行###</span>
+&lt;?&gt; A
+</pre></div>
+</div>
+</div>
+<div class="section" id="for">
+<h3>9.3.2. for文<a class="headerlink" href="#for" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>　やりすぎ？</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">###Aをn回繰り返す###</span>
+&lt;n&gt; A
+<span class="c">###文字列a,b,cをAの引数にしつつ実行###</span>
+&lt;<span class="o">[</span><span class="s1">&#39;a&#39;</span> <span class="s1">&#39;b&#39;</span> <span class="s1">&#39;c&#39;</span><span class="o">]</span>&gt; A
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -162,6 +187,11 @@ OK
 <li><a class="reference internal" href="#">9. ループ</a><ul>
 <li><a class="reference internal" href="#repeat">9.1. repeat</a></li>
 <li><a class="reference internal" href="#while">9.2. while</a></li>
+<li><a class="reference internal" href="#id2">9.3. 制御構文(制御演算子？)の案</a><ul>
+<li><a class="reference internal" href="#id3">9.3.1. while文</a></li>
+<li><a class="reference internal" href="#for">9.3.2. for文</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
