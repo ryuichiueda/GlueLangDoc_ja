@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>8. ジョブの管理 &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
+    <title>9. ループ &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="top" title="GlueLangDoc_jp 0.0.1 ドキュメント" href="index.html" />
-    <link rel="next" title="9. ループ" href="loop.html" />
-    <link rel="prev" title="7. 引数" href="args.html" />
+    <link rel="prev" title="8. ジョブの管理" href="job.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -40,34 +39,35 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>8. ジョブの管理<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<p>　GlueLangでは、ジョブに名前をつけることができます。
-次の例は、3,4,5行目のジョブにそれぞれa,b,cと名前をつけて実行し、内部コマンド <code class="docutils literal"><span class="pre">in.wait</span></code> で待ってから8行目の処理をするというものです。</p>
-<p>Fig.: job.glue</p>
+<h1>9. ループ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>　GlueLangの繰り返しの機能は、現在のところとても貧弱です。
+内部コマンドとして <code class="docutils literal"><span class="pre">repeat</span></code> と <code class="docutils literal"><span class="pre">while</span></code> が実装されています。</p>
+<div class="section" id="repeat">
+<h2>9.1. repeat<a class="headerlink" href="#repeat" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　repeatは回数を指定して手続きを実行します。今のところ手続きだけを処理対象の引数としてとります。
+次の例は手続きfを4回繰り返す処理です。</p>
+<p>Fig.: internal_repeat.glue</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
+5</pre></div></td><td class="code"><div class="highlight"><pre>proc <span class="nv">f</span> <span class="o">=</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="s1">&#39;aaa&#39;</span>
+  <span class="nb">echo</span> <span class="s1">&#39;bbb&#39;</span>
 
-sleep <span class="m">3</span> &gt;&gt; <span class="nb">echo</span> <span class="s1">&#39;a&#39;</span> &gt;&gt;<span class="o">=</span> sed <span class="s1">&#39;s/./&amp;&amp;/&#39;</span> <span class="p">&amp;</span> a
-sleep <span class="m">2</span> &gt;&gt; <span class="nb">echo</span> <span class="s1">&#39;b&#39;</span> &gt;&gt;<span class="o">=</span> sed <span class="s1">&#39;s/./&amp;&amp;/&#39;</span> <span class="p">&amp;</span> b
-sleep <span class="m">1</span> &gt;&gt; <span class="nb">echo</span> <span class="s1">&#39;c&#39;</span> &gt;&gt;<span class="o">=</span> sed <span class="s1">&#39;s/./&amp;&amp;/&#39;</span> <span class="p">&amp;</span> c
-
-in.wait a b c
-<span class="nb">echo</span> <span class="s1">&#39;d&#39;</span>
+in.repeat <span class="m">3</span> this.f
 </pre></div>
 </td></tr></table></div>
-<p>実行してみましょう。 <code class="docutils literal"><span class="pre">sleep</span></code> の秒数に対応して、c,b,aの順に処理が終了し、<code class="docutils literal"><span class="pre">in.wait</span></code> でジョブ待ちを行なった後、最後に8行目の <code class="docutils literal"><span class="pre">echo</span> <span class="pre">'d'</span></code> が実行されます。</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue jobs.glue
-cc
-bb
-aa
-d
+<p>実行すると次のようになります。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue internal_repeat.glue
+aaa
+bbb
+aaa
+bbb
+aaa
+bbb
 </pre></div>
+</div>
 </div>
 </div>
 
@@ -76,19 +76,26 @@ d
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">9. ループ</a><ul>
+<li><a class="reference internal" href="#repeat">9.1. repeat</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="args.html" title="前の章へ">7. 引数</a></li>
-      <li>Next: <a href="loop.html" title="次の章へ">9. ループ</a></li>
+      <li>Previous: <a href="job.html" title="前の章へ">8. ジョブの管理</a></li>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>このページ</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/job.txt"
+      <li><a href="_sources/loop.txt"
             rel="nofollow">ソースコードを表示</a></li>
     </ul>
    </div>
@@ -117,7 +124,7 @@ d
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
-      <a href="_sources/job.txt"
+      <a href="_sources/loop.txt"
           rel="nofollow">Page source</a>
     </div>
 

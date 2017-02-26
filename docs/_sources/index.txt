@@ -25,6 +25,7 @@ Contents:
    procedure
    args
    job
+   loop
 
 Indices and tables
 ==================
