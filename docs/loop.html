@@ -42,7 +42,8 @@
 <h1>9. ループ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>　GlueLangの繰り返しの機能は、現在のところとても貧弱です。
 繰り返し実行される処理の中で変数が使いまわせない等、まだまだ実用的な段階ではありません。
-現在のところ、内部コマンドとして <code class="docutils literal"><span class="pre">repeat</span></code> と <code class="docutils literal"><span class="pre">while</span></code> が実装されています。</p>
+現在のところ、内部コマンドとして <code class="docutils literal"><span class="pre">repeat</span></code> と <code class="docutils literal"><span class="pre">while</span></code> が実装されています。
+内部コマンドなので、どちらも <code class="docutils literal"><span class="pre">in.</span></code> を頭につけて利用します。</p>
 <div class="section" id="repeat">
 <h2>9.1. repeat<a class="headerlink" href="#repeat" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　repeatは回数を指定して手続きを実行します。今のところ手続きだけを処理対象の引数としてとります。
