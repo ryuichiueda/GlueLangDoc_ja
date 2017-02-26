@@ -17,7 +17,7 @@ Contents:
 
    introduction
    command
-   shebang 
+   shebang_comment 
    connection
    procedure
    args
