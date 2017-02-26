@@ -18,6 +18,7 @@ Contents:
    introduction
    command
    connection
+   procedure
    args
 
 Indices and tables
