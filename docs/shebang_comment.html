@@ -68,7 +68,16 @@ shebang
 <h2>3.2. コメント<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　コメントは#の後ろに書きます。例を一つ示します。</p>
 <p>Fig.: comment.glue</p>
+<div class="highlight-bash"><div class="highlight"><pre>/bin/echo <span class="s1">&#39;aaa&#39;</span> <span class="c">#コメント</span>
+/bin/echo <span class="s1">&#39;a#aa&#39;</span> <span class="c">#引数の中の#はコメント扱いされません。</span>
+</pre></div>
+</div>
 <p>実行結果は次の通りです。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue comment.glue
+aaa
+a#aa
+</pre></div>
+</div>
 </div>
 </div>
 

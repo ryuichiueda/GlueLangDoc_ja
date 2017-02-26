@@ -39,14 +39,14 @@
 
 Fig.: comment.glue 
 
-.. code-block::
+.. code-block:: bash
 
         /bin/echo 'aaa' #コメント
         /bin/echo 'a#aa' #引数の中の#はコメント扱いされません。
 
 実行結果は次の通りです。
 
-.. code-block::
+.. code-block:: bash
 
         $ glue comment.glue 
         aaa
