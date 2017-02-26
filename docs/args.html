@@ -40,6 +40,8 @@
             
   <div class="section" id="id1">
 <h1>6. 引数<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<div class="section" id="id2">
+<h2>6.1. 外部からの引数の取り込み<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　引数は配列argvに入っており、スクリプト内で利用できます。</p>
 <ul class="simple">
 <li>Fig.: args1.glue</li>
@@ -53,13 +55,43 @@ abc アイウエオ
 </pre></div>
 </div>
 </div>
+<div class="section" id="id3">
+<h2>6.2. 手続きでの引数<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　手続きでも同様に引数が使えます。</p>
+<p>Fig.: args2.glue</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/usr/local/bin/glue</span>
+
+proc <span class="nv">hoge</span> <span class="o">=</span> <span class="k">do</span>
+  /bin/echo argv<span class="o">[</span>1<span class="o">]</span> &gt;&gt;<span class="o">=</span> /usr/bin/rev
+  /bin/echo argv<span class="o">[</span>2<span class="o">]</span>
+
+this.hoge <span class="s1">&#39;abc&#39;</span> <span class="s1">&#39;OK&#39;</span>
+</pre></div>
+</div>
+<p>実行するとこのようになります。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./args2.glue
+cba
+OK
+</pre></div>
+</div>
+</div>
+</div>
 
 
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">6. 引数</a><ul>
+<li><a class="reference internal" href="#id2">6.1. 外部からの引数の取り込み</a></li>
+<li><a class="reference internal" href="#id3">6.2. 手続きでの引数</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
