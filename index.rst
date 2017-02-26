@@ -8,7 +8,7 @@
 
 千葉工業大学 上田隆一
 
-* ソースコードのリポジトリ: https://github.com/ryuichiueda/GlueLang
+* GlueLangのリポジトリ: https://github.com/ryuichiueda/GlueLang
 * このドキュメントのリポジトリ: https://github.com/ryuichiueda/GlueLangDoc_ja
 
 Contents:
