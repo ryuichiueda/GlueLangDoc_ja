@@ -87,6 +87,55 @@ c
 </pre></div>
 </div>
 </div>
+<div class="section" id="or">
+<h2>3.3. OR記号<a class="headerlink" href="#or" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　一方OR記号については <code class="docutils literal"><span class="pre">!&gt;</span></code> という表記を採用しました。</p>
+<ul class="simple">
+<li>Fig.: or.glue</li>
+</ul>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
+
+<span class="nb">false</span> !&gt; <span class="nb">echo</span> <span class="s1">&#39;Echo is executed.&#39;</span>
+<span class="nb">true</span> !&gt; <span class="nb">echo</span> <span class="s1">&#39;Echo is not executed.&#39;</span>
+</pre></div>
+</td></tr></table></div>
+<p>実行するとこうなります。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue or.glue
+Echo is executed.
+</pre></div>
+</div>
+<p>　ANDやORは、最後に実行されたコマンドで条件分岐します。
+次の例の場合、 <code class="docutils literal"><span class="pre">false</span></code> が失敗するので、 <code class="docutils literal"><span class="pre">&gt;&gt;</span></code>
+の右側の <code class="docutils literal"><span class="pre">echo</span> <span class="pre">'if'</span></code> は実行されず、その次の <code class="docutils literal"><span class="pre">echo</span> <span class="pre">'else'</span></code>
+が実行されます。</p>
+<ul class="simple">
+<li>Fig.: or2.glue</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre>import PATH
+<span class="nb">false</span> &gt;&gt; <span class="nb">echo</span> <span class="s1">&#39;if&#39;</span> !&gt; <span class="nb">echo</span> <span class="s1">&#39;else&#39;</span>
+</pre></div>
+</div>
+<p>動作は次のようになります。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue ./or2.glue
+<span class="k">else</span>
+</pre></div>
+</div>
+<p>　一方、次の例ではifの方が出力されて、
+この時の <code class="docutils literal"><span class="pre">echo</span></code> が成功するのでelseは出力されません。</p>
+<ul class="simple">
+<li>Fig.: or3.glue</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre>import PATH
+<span class="nb">true</span> &gt;&gt; <span class="nb">echo</span> <span class="s1">&#39;if&#39;</span> !&gt; <span class="nb">echo</span> <span class="s1">&#39;else&#39;</span>
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h3>3.3.1. バグ<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+</div>
+</div>
 </div>
 
 
@@ -100,6 +149,10 @@ c
 <li><a class="reference internal" href="#">3. コマンドの接続</a><ul>
 <li><a class="reference internal" href="#id2">3.1. パイプライン</a></li>
 <li><a class="reference internal" href="#and">3.2. AND記号</a></li>
+<li><a class="reference internal" href="#or">3.3. OR記号</a><ul>
+<li><a class="reference internal" href="#id3">3.3.1. バグ</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

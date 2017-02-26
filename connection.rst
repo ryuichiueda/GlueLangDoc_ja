@@ -61,3 +61,59 @@ AND記号
         a
         b
         c
+
+OR記号
+==========================================
+
+　一方OR記号については ``!>`` という表記を採用しました。
+
+* Fig.: or.glue
+
+.. code-block:: bash
+        :linenos:
+
+        import PATH
+
+        false !> echo 'Echo is executed.'
+        true !> echo 'Echo is not executed.'
+
+実行するとこうなります。
+
+.. code-block:: bash
+
+        $ glue or.glue 
+        Echo is executed.
+
+　ANDやORは、最後に実行されたコマンドで条件分岐します。
+次の例の場合、 ``false`` が失敗するので、 ``>>``
+の右側の ``echo 'if'`` は実行されず、その次の ``echo 'else'``
+が実行されます。
+
+* Fig.: or2.glue
+
+.. code-block:: bash
+
+        import PATH
+        false >> echo 'if' !> echo 'else'
+
+動作は次のようになります。
+
+.. code-block:: bash
+
+        $ glue ./or2.glue 
+        else
+
+　一方、次の例ではifの方が出力されて、
+この時の ``echo`` が成功するのでelseは出力されません。
+
+* Fig.: or3.glue
+
+.. code-block:: bash
+
+        import PATH
+        true >> echo 'if' !> echo 'else'
+
+
+バグ
+------------------------------------------
+
