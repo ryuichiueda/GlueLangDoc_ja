@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>6. 引数 &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
+    <title>7. ジョブの管理 &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="top" title="GlueLangDoc_jp 0.0.1 ドキュメント" href="index.html" />
-    <link rel="next" title="7. ジョブの管理" href="job.html" />
-    <link rel="prev" title="5. 手続き" href="procedure.html" />
+    <link rel="prev" title="6. 引数" href="args.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -40,41 +39,34 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>6. 引数<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="section" id="id2">
-<h2>6.1. 外部からの引数の取り込み<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>　引数は配列argvに入っており、スクリプト内で利用できます。</p>
-<ul class="simple">
-<li>Fig.: args1.glue</li>
-</ul>
-<div class="highlight-bash"><div class="highlight"><pre>/bin/echo argv<span class="o">[</span>1<span class="o">]</span> argv<span class="o">[</span>2<span class="o">]</span>
-</pre></div>
-</div>
-<p>実行してみましょう。</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue ./args1.glue abc アイウエオ
-abc アイウエオ
-</pre></div>
-</div>
-</div>
-<div class="section" id="id3">
-<h2>6.2. 手続きでの引数<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>　手続きでも同様に引数が使えます。</p>
-<p>Fig.: args2.glue</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/usr/local/bin/glue</span>
+<h1>7. ジョブの管理<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>　GlueLangでは、ジョブに名前をつけることができます。
+次の例は、3,4,5行目のジョブにそれぞれa,b,cと名前をつけて実行し、内部コマンド <code class="docutils literal"><span class="pre">in.wait</span></code> で待ってから8行目の処理をするというものです。</p>
+<p>Fig.: job.glue</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
 
-proc <span class="nv">hoge</span> <span class="o">=</span> <span class="k">do</span>
-  /bin/echo argv<span class="o">[</span>1<span class="o">]</span> &gt;&gt;<span class="o">=</span> /usr/bin/rev
-  /bin/echo argv<span class="o">[</span>2<span class="o">]</span>
+sleep <span class="m">3</span> &gt;&gt; <span class="nb">echo</span> <span class="s1">&#39;a&#39;</span> &gt;&gt;<span class="o">=</span> sed <span class="s1">&#39;s/./&amp;&amp;/&#39;</span> <span class="p">&amp;</span> a
+sleep <span class="m">2</span> &gt;&gt; <span class="nb">echo</span> <span class="s1">&#39;b&#39;</span> &gt;&gt;<span class="o">=</span> sed <span class="s1">&#39;s/./&amp;&amp;/&#39;</span> <span class="p">&amp;</span> b
+sleep <span class="m">1</span> &gt;&gt; <span class="nb">echo</span> <span class="s1">&#39;c&#39;</span> &gt;&gt;<span class="o">=</span> sed <span class="s1">&#39;s/./&amp;&amp;/&#39;</span> <span class="p">&amp;</span> c
 
-this.hoge <span class="s1">&#39;abc&#39;</span> <span class="s1">&#39;OK&#39;</span>
+in.wait a b c
+<span class="nb">echo</span> <span class="s1">&#39;d&#39;</span>
 </pre></div>
-</div>
-<p>実行するとこのようになります。</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./args2.glue
-cba
-OK
+</td></tr></table></div>
+<p>実行してみましょう。 <code class="docutils literal"><span class="pre">sleep</span></code> の秒数に対応して、c,b,aの順に処理が終了し、<code class="docutils literal"><span class="pre">in.wait</span></code> でジョブ待ちを行なった後、最後に8行目の <code class="docutils literal"><span class="pre">echo</span> <span class="pre">'d'</span></code> が実行されます。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue jobs.glue
+cc
+bb
+aa
+d
 </pre></div>
-</div>
 </div>
 </div>
 
@@ -83,28 +75,18 @@ OK
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">目次</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">6. 引数</a><ul>
-<li><a class="reference internal" href="#id2">6.1. 外部からの引数の取り込み</a></li>
-<li><a class="reference internal" href="#id3">6.2. 手続きでの引数</a></li>
-</ul>
-</li>
-</ul>
-<div class="relations">
+        <div class="sphinxsidebarwrapper"><div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="procedure.html" title="前の章へ">5. 手続き</a></li>
-      <li>Next: <a href="job.html" title="次の章へ">7. ジョブの管理</a></li>
+      <li>Previous: <a href="args.html" title="前の章へ">6. 引数</a></li>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>このページ</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/args.txt"
+      <li><a href="_sources/job.txt"
             rel="nofollow">ソースコードを表示</a></li>
     </ul>
    </div>
@@ -133,7 +115,7 @@ OK
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
-      <a href="_sources/args.txt"
+      <a href="_sources/job.txt"
           rel="nofollow">Page source</a>
     </div>
 
