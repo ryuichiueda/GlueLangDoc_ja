@@ -17,6 +17,7 @@ Contents:
 
    introduction
    command
+   file_str
    shebang_comment 
    connection
    procedure

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>4. コマンドの接続 &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
+    <title>5. コマンドの接続 &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="top" title="GlueLangDoc_jp 0.0.1 ドキュメント" href="index.html" />
-    <link rel="next" title="5. 手続き" href="procedure.html" />
-    <link rel="prev" title="3. シバンとコメント" href="shebang_comment.html" />
+    <link rel="next" title="6. 手続き" href="procedure.html" />
+    <link rel="prev" title="4. シバンとコメント" href="shebang_comment.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -40,9 +40,9 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>4. コマンドの接続<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<h1>5. コマンドの接続<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <div class="section" id="id2">
-<h2>4.1. パイプライン<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>5.1. パイプライン<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　パイプの記号は <code class="docutils literal"><span class="pre">&gt;&gt;=</span></code> です。
 <code class="docutils literal"><span class="pre">|</span></code> と比較すると打つのが面倒ですが、
 一方でスクリプトの中で目立つので、
@@ -75,7 +75,7 @@
 </div>
 </div>
 <div class="section" id="and">
-<h2>4.2. AND記号<a class="headerlink" href="#and" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>5.2. AND記号<a class="headerlink" href="#and" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　Bシェル系の <code class="docutils literal"><span class="pre">&amp;&amp;</span></code> に相当する記号は <code class="docutils literal"><span class="pre">&gt;&gt;</span></code> です。
 これもHaskellに由来します。次のように使います。</p>
 <div class="highlight-bash"><div class="highlight"><pre>/bin/echo <span class="s1">&#39;a&#39;</span> &gt;&gt; /bin/echo <span class="s1">&#39;b&#39;</span> &gt;&gt; /bin/echo <span class="s1">&#39;c&#39;</span>
@@ -89,7 +89,7 @@ c
 </div>
 </div>
 <div class="section" id="or">
-<h2>4.3. OR記号<a class="headerlink" href="#or" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>5.3. OR記号<a class="headerlink" href="#or" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　一方OR記号については <code class="docutils literal"><span class="pre">!&gt;</span></code> という表記を採用しました。</p>
 <ul class="simple">
 <li>Fig.: or.glue</li>
@@ -134,7 +134,7 @@ Echo is executed.
 </pre></div>
 </div>
 <div class="section" id="id3">
-<h3>4.3.1. バグ<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3>5.3.1. バグ<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>　次のように二つ <code class="docutils literal"><span class="pre">!&gt;</span></code> をつなげた時の挙動が環境によって異なるバグが発生しており、取りきれていません。</p>
 <p>Fig.: or_bug.glue</p>
 <div class="highlight-bash"><div class="highlight"><pre>import PATH
@@ -162,11 +162,11 @@ b
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">4. コマンドの接続</a><ul>
-<li><a class="reference internal" href="#id2">4.1. パイプライン</a></li>
-<li><a class="reference internal" href="#and">4.2. AND記号</a></li>
-<li><a class="reference internal" href="#or">4.3. OR記号</a><ul>
-<li><a class="reference internal" href="#id3">4.3.1. バグ</a></li>
+<li><a class="reference internal" href="#">5. コマンドの接続</a><ul>
+<li><a class="reference internal" href="#id2">5.1. パイプライン</a></li>
+<li><a class="reference internal" href="#and">5.2. AND記号</a></li>
+<li><a class="reference internal" href="#or">5.3. OR記号</a><ul>
+<li><a class="reference internal" href="#id3">5.3.1. バグ</a></li>
 </ul>
 </li>
 </ul>
@@ -176,8 +176,8 @@ b
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="shebang_comment.html" title="前の章へ">3. シバンとコメント</a></li>
-      <li>Next: <a href="procedure.html" title="次の章へ">5. 手続き</a></li>
+      <li>Previous: <a href="shebang_comment.html" title="前の章へ">4. シバンとコメント</a></li>
+      <li>Next: <a href="procedure.html" title="次の章へ">6. 手続き</a></li>
   </ul></li>
 </ul>
 </div>

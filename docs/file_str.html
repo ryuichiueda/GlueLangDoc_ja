@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3. ファイル変数・文字列変数 &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="GlueLangDoc_jp 0.0.1 ドキュメント" href="index.html" />
+    <link rel="next" title="4. シバンとコメント" href="shebang_comment.html" />
+    <link rel="prev" title="2. コマンドの呼び出し" href="command.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="id1">
+<h1>3. ファイル変数・文字列変数<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>　GlueLangでは、変数の型として変数と文字列が定義されています。</p>
+<div class="section" id="id2">
+<h2>3.1. ファイル変数<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　GlueLangではファイルを <code class="docutils literal"><span class="pre">/etc/passwd</span></code> のようなパスの文字列の他、変数として扱うことができます。次の例は変数 <code class="docutils literal"><span class="pre">f</span></code> を定義しており、 <code class="docutils literal"><span class="pre">f</span></code> はファイルとして振舞います。</p>
+<p>Fig.: file1.glue</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
+
+file <span class="nv">f</span> <span class="o">=</span> head -n <span class="m">1</span> <span class="s1">&#39;/etc/hosts&#39;</span>   <span class="c">#/etc/hostsから1行読み込んでfに入力</span>
+
+cat f                             <span class="c">#fをcatで出力</span>
+</pre></div>
+</td></tr></table></div>
+<p>この例のように、 <code class="docutils literal"><span class="pre">f</span></code> は「ファイル変数」と呼ばれます。ファイル変数は、コマンドに引数として渡すことができます。</p>
+</div>
+<div class="section" id="id3">
+<h2>3.2. 文字列変数<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　文字列変数は <code class="docutils literal"><span class="pre">str</span> <span class="pre">名前</span></code> で定義します。次の例からは、上のfile1.glueと同じ出力が得られますが、 <code class="docutils literal"><span class="pre">s</span></code> の内容はGlueLang内のメモリに格納されます。</p>
+<p>Fig.: str1.glue</p>
+<div class="highlight-bash"><div class="highlight"><pre>import PATH
+
+str <span class="nv">s</span> <span class="o">=</span> head -n <span class="m">1</span> <span class="s1">&#39;/etc/hosts&#39;</span>
+
+<span class="nb">echo </span>s
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3. ファイル変数・文字列変数</a><ul>
+<li><a class="reference internal" href="#id2">3.1. ファイル変数</a></li>
+<li><a class="reference internal" href="#id3">3.2. 文字列変数</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="command.html" title="前の章へ">2. コマンドの呼び出し</a></li>
+      <li>Next: <a href="shebang_comment.html" title="次の章へ">4. シバンとコメント</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>このページ</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/file_str.txt"
+            rel="nofollow">ソースコードを表示</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>クイック検索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Ryuichi Ueda.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/file_str.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
