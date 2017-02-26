@@ -152,6 +152,27 @@ b
 </div>
 </div>
 </div>
+<div class="section" id="then">
+<h2>5.4. Then記号（未実装）<a class="headerlink" href="#then" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　 <code class="docutils literal"><span class="pre">?&gt;</span></code> はthenを表します。then記号の右側にあるコマンドが成功すると、それより右側にANDやORでコマンドがつながっていても実行されません。失敗するとスクリプトが止まります。</p>
+<p>　つまり、次のようにコマンドを並べると、if文を作ることができます。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">###if A then B else if C then D else E###</span>
+A ?&gt; B
+!&gt; C ?&gt; D
+!&gt; E
+</pre></div>
+</div>
+<div class="section" id="id4">
+<h3>5.4.1. メモ<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>　Haskellだとこうなるのでもっとスッキリのですが、A、Cに相当する部分が長くなることがあり、シェルには向いていないかもしれません。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">###if A then B else if C then D else E###</span>
+A        ?&gt; B
+C        ?&gt; D
+othewise ?&gt; E
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -167,6 +188,10 @@ b
 <li><a class="reference internal" href="#and">5.2. AND記号</a></li>
 <li><a class="reference internal" href="#or">5.3. OR記号</a><ul>
 <li><a class="reference internal" href="#id3">5.3.1. バグ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#then">5.4. Then記号（未実装）</a><ul>
+<li><a class="reference internal" href="#id4">5.4.1. メモ</a></li>
 </ul>
 </li>
 </ul>
