@@ -31,3 +31,24 @@
 
         $ which glue
         /usr/local/bin/glue
+
+コメント
+==============================
+
+　コメントは#の後ろに書きます。例を一つ示します。
+
+Fig.: comment.glue 
+
+.. code-block::
+
+        /bin/echo 'aaa' #コメント
+        /bin/echo 'a#aa' #引数の中の#はコメント扱いされません。
+
+実行結果は次の通りです。
+
+.. code-block::
+
+        $ glue comment.glue 
+        aaa
+        a#aa
+
