@@ -17,6 +17,7 @@ Contents:
 
    introduction
    command
+   shebang 
    connection
    procedure
    args
