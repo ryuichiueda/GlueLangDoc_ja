@@ -154,8 +154,11 @@ b
 </div>
 <div class="section" id="then">
 <h2>5.4. Then記号（未実装）<a class="headerlink" href="#then" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>　 <code class="docutils literal"><span class="pre">?&gt;</span></code> はthenを表します。then記号の右側にあるコマンドが成功すると、それより右側にANDやORでコマンドがつながっていても実行されません。失敗するとスクリプトが止まります。</p>
-<p>　つまり、次のようにコマンドを並べると、if文を作ることができます。</p>
+<p>　 <code class="docutils literal"><span class="pre">?&gt;</span></code> はthenを表します。
+then記号の左側にあるコマンドが成功すると、右側のコマンドが実行されて、
+さらにそれ以後にANDやORでコマンドがつながっていても実行されません。
+失敗するとスクリプトが止まります。
+つまり、次のようにコマンドを並べると、if文を作ることができます。</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="c">###if A then B else if C then D else E###</span>
 A ?&gt; B
 !&gt; C ?&gt; D
