@@ -26,6 +26,7 @@ Contents:
    args
    job
    loop
+   error
 
 Indices and tables
 ==================
