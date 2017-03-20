@@ -40,12 +40,14 @@
             
   <div class="section" id="id1">
 <h1>10. エラー処理<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>　GlueLangでは、従来のシェルよりもエラーの表示を重視しています。
+また、エラーが起こるとその場で処理が止まります。
+ただし、条件文の中やループの終了判断時にはその限りでなく、
+少しルールがあります。</p>
 <div class="section" id="id2">
-<h2>10.1. 終了ステータス<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>　GlueLangはsh系のシェルと異なり、
-コマンドの終了ステータスをそのまま返すことはしません。
-例えば、次の例ではdiffを単体で呼び出していますが、
-diffの終了ステータスは2、glueの終了ステータスは1となります。</p>
+<h2>10.1. エラーの表示<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　エラーが起こると、エラーの箇所と付随情報が表示されます。
+次の例はdiffを単体で呼び出した時のエラー表示です。</p>
 <ul class="simple">
 <li>図: simple_error.glue</li>
 </ul>
@@ -65,9 +67,81 @@ Execution error at line 3, char 1
         process_level 0
         exit_status 2
         pid 14247
+</pre></div>
+</div>
+<p>付随情報としては、図のように、エラーの原因（Command error）、
+エラーの起きたシェルのレベル（この場合は最上位の0）、
+コマンドの終了ステータス（2）が表示されています。</p>
+</div>
+<div class="section" id="id3">
+<h2>10.2. 終了ステータス<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　GlueLangはsh系のシェルと異なり、
+コマンドの終了ステータスをそのまま返すことはしません。
+例えば、次の例では先ほどのスクリプトを実行した後に終了ステータスを確認していますが、
+diffの終了ステータスは2、glueの終了ステータスは1になっています。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cat simple_error.glue
+import PATH
 
+diff
+<span class="nv">$ </span>glue ./simple_error.glue
+（略。diffのエラー）
+        exit_status 2
+（略）
 <span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$?</span>
 1
+</pre></div>
+</div>
+<p>　このようにする理由は、多くのシェルのように最後のコマンドの終了ステータスをそのまま返すと、
+glue自体のエラーの終了ステータスと切り分けられないという問題を解決するためです。
+また、こうしておくと、
+loopブロックの中のスクリプトのバグでスクリプト全体を止めることができるようになります。</p>
+<p>　次のサンプルは、loopの中でコマンドがエラーを起こす場合と、
+glueがコマンドを探せないという原因でエラーを起こす場合の
+loopブロックの挙動の違いを確認するためのものです。</p>
+<ul class="simple">
+<li>図: loop_stop.glue</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre>import PATH
+
+loop
+  <span class="nb">false</span>  <span class="c">#これはコマンドのエラーなので処理続行</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;a&#39;</span> <span class="c">#これは実行される</span>
+
+loop
+  falce  <span class="c">#存在しないコマンドの呼び出しはglueのエラー</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;b&#39;</span> <span class="c">#これは実行されない</span>
+</pre></div>
+</div>
+<p>実行すると、 <code class="docutils literal"><span class="pre">echo</span> <span class="pre">'b'</span></code> が実行されないことが分かります。
+最終行に「b」が出てきません。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue ./loop_stop.glue
+a
+
+Parse error at line 1, char 1
+        line1: falce  <span class="c">#存在しないコマンドの呼び出しはglueのエラー</span>
+               ^
+
+        Command falce not exist
+
+        process_level 1
+        exit_status 2
+        pid 14395
+
+        glue exit_status: 2
+
+Execution error at line 8, char 1
+        line8: loop
+               ^
+        line9:   falce  <span class="c">#存在しないコマンドの呼び出しはglueのエラー</span>
+        line10:
+
+        Command error
+
+        process_level 0
+        exit_status 1
+        pid 14389
 </pre></div>
 </div>
 </div>
@@ -82,7 +156,8 @@ Execution error at line 3, char 1
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">10. エラー処理</a><ul>
-<li><a class="reference internal" href="#id2">10.1. 終了ステータス</a></li>
+<li><a class="reference internal" href="#id2">10.1. エラーの表示</a></li>
+<li><a class="reference internal" href="#id3">10.2. 終了ステータス</a></li>
 </ul>
 </li>
 </ul>
