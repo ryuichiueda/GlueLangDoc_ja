@@ -161,3 +161,69 @@ Then記号（未実装）
         A        ?> B
         C        ?> D
         othewise ?> E
+
+
+複合コマンド
+==========================================
+
+　コマンドを束ねたいときはdoという命令の後にインデントして複数のコマンドを記述します。
+
+単純なブロック化
+-----------------------------------------
+
+次の例は二つのコマンドを1つに束ねる例です。
+
+
+* 図: do_block.glue 
+
+.. code-block:: bash
+
+	import PATH
+	
+	do
+	  echo 'a'  
+	  echo 'b' 
+
+この例の場合、実行した結果は束ねないときと特に同じです。
+
+.. code-block:: bash
+
+	$ glue do_block.glue 
+	a
+	b
+
+他の機能との併用
+-----------------------------------------
+
+　doの前には文字列やファイルへの格納や、手続き（6章）の宣言を置くことができます。
+
+* 図: do_block_plus.glue
+
+.. code-block:: bash
+
+	import PATH
+	
+	#手続きの定義・宣言
+	proc fn = do
+	  echo 'c' 
+	
+	#ファイルへの格納
+	file f = do
+	  echo 'a'  
+	
+	#文字列への格納
+	str s = do
+	  echo 'b'
+	
+	cat f >> echo s >> fn
+
+実行結果は次のようになります。
+
+
+.. code-block:: bash
+
+	$ glue ./do_block_plus.glue 
+	a
+	b
+	c
+	

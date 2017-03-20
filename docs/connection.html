@@ -173,6 +173,61 @@ othewise ?&gt; E
 </div>
 </div>
 </div>
+<div class="section" id="id5">
+<h2>5.5. 複合コマンド<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　コマンドを束ねたいときはdoという命令の後にインデントして複数のコマンドを記述します。</p>
+<div class="section" id="id6">
+<h3>5.5.1. 単純なブロック化<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>次の例は二つのコマンドを1つに束ねる例です。</p>
+<ul class="simple">
+<li>図: do_block.glue</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre>import PATH
+
+<span class="k">do</span>
+  <span class="nb">echo</span> <span class="s1">&#39;a&#39;</span>
+  <span class="nb">echo</span> <span class="s1">&#39;b&#39;</span>
+</pre></div>
+</div>
+<p>この例の場合、実行した結果は束ねないときと特に同じです。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue do_block.glue
+a
+b
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>5.5.2. 他の機能との併用<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>　doの前には文字列やファイルへの格納や、手続き（6章）の宣言を置くことができます。</p>
+<ul class="simple">
+<li>図: do_block_plus.glue</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre>import PATH
+
+<span class="c">#手続きの定義・宣言</span>
+proc <span class="nv">fn</span> <span class="o">=</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="s1">&#39;c&#39;</span>
+
+<span class="c">#ファイルへの格納</span>
+file <span class="nv">f</span> <span class="o">=</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="s1">&#39;a&#39;</span>
+
+<span class="c">#文字列への格納</span>
+str <span class="nv">s</span> <span class="o">=</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="s1">&#39;b&#39;</span>
+
+cat f &gt;&gt; <span class="nb">echo </span>s &gt;&gt; fn
+</pre></div>
+</div>
+<p>実行結果は次のようになります。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue ./do_block_plus.glue
+a
+b
+c
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -192,6 +247,11 @@ othewise ?&gt; E
 </li>
 <li><a class="reference internal" href="#then">5.4. Then記号（未実装）</a><ul>
 <li><a class="reference internal" href="#id4">5.4.1. メモ</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">5.5. 複合コマンド</a><ul>
+<li><a class="reference internal" href="#id6">5.5.1. 単純なブロック化</a></li>
+<li><a class="reference internal" href="#id7">5.5.2. 他の機能との併用</a></li>
 </ul>
 </li>
 </ul>
