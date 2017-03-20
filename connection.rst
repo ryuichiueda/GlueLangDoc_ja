@@ -163,15 +163,17 @@ Then記号（未実装）
         othewise ?> E
 
 
-複合コマンド
+複合コマンド（doブロック）
 ==========================================
 
 　コマンドを束ねたいときはdoという命令の後にインデントして複数のコマンドを記述します。
+doと、doに結びつけられたコマンド全体を「doブロック」と呼びます。
+doブロックは、シェルにおける複合コマンドとほぼ等価です。
 
 単純なブロック化
 -----------------------------------------
 
-次の例は二つのコマンドを1つに束ねる例です。
+　次の例は二つのコマンドを1つに束ねる例です。
 
 
 * 図: do_block.glue 
@@ -226,4 +228,88 @@ Then記号（未実装）
 	a
 	b
 	c
+
+　また、ANDやORとの併用も可能です。
+次の例はORでdoブロックを接続する例です。
+
+図: do_if_then.glue 
+
+.. code-block:: bash
+
+	import PATH
 	
+	do
+	  false       #これで次の!>に飛ぶ
+	  echo 'a'    #実行されない
+	!> do
+	  echo 'b'    #これが実行される
+	!> do
+	  echo 'c'    #これは実行されない
+
+実行すると、次のようにecho 'b'だけ実行されます。
+
+.. code-block:: bash
+
+	$ glue ./do_if_then.glue 
+	b
+
+	
+スコープ
+-----------------------------------------
+
+　doブロックの中で定義した変数はdoブロックの中でのみ有効です。
+次の例はdoブロックの中で定義したファイル変数fを、
+doブロックの外で使った例です。
+
+* 図: do_block_scope.glue 
+
+.. code-block:: bash
+
+	import PATH
+	
+	do
+	  file f = echo 'a'  
+	
+	cat f    #エラーが起きる
+
+実行すると次のようにエラーが出ます。
+
+.. code-block:: bash
+
+	$ glue ./do_block_scope.glue 
+	
+	Execution error at line 6, char 5
+		line6: cat f    #エラーが起きる
+		           ^
+	
+		variable f not found
+		
+		process_level 0
+		exit_status 1
+		pid 3128
+
+
+  回避するときの一例としては、次のようにシステムのファイルを使う方法があります。
+実行結果は省略します。
+
+.. code-block:: bash
+
+	import PATH
+	
+	do
+	  file f = echo 'a'  
+	  mv f '/tmp/hoge'
+	
+	cat '/tmp/hoge'
+	
+　逆に外側で作られた文字列やファイルはdoブロックの中で使うことができます。
+実行例は省略しますが、次の例はエラーが起きず、「アイウエオ」と出力されます。
+
+.. code-block:: bash
+	
+	import PATH
+	
+	str s = 'アイウエオ'
+	
+	do
+	  echo s
