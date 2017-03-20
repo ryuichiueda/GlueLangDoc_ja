@@ -104,12 +104,12 @@ loopブロックの挙動の違いを確認するためのものです。</p>
 <div class="highlight-bash"><div class="highlight"><pre>import PATH
 
 loop
-  <span class="nb">false</span>  <span class="c">#これはコマンドのエラーなので処理続行</span>
+  <span class="nb">false</span>  <span class="c">#これはコマンドのエラーなのでループを抜けるだけ</span>
 
 <span class="nb">echo</span> <span class="s1">&#39;a&#39;</span> <span class="c">#これは実行される</span>
 
 loop
-  falce  <span class="c">#存在しないコマンドの呼び出しはglueのエラー</span>
+  falce  <span class="c">#存在しないコマンドの呼び出しはglueのエラーなので処理が止まる</span>
 
 <span class="nb">echo</span> <span class="s1">&#39;b&#39;</span> <span class="c">#これは実行されない</span>
 </pre></div>
