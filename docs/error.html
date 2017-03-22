@@ -45,7 +45,45 @@
 ただし、条件文の中やループの終了判断時にはその限りでなく、
 少しルールがあります。</p>
 <div class="section" id="id2">
-<h2>10.1. エラーの表示<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>10.1. 終了ステータス（まだ実装は不十分）<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　GlueLangの特徴の一つは、終了ステータスが、
+呼び出したコマンドの終了ステータスとは独立していることです。
+通常、Bシェル系の終了ステータスは、最後に呼び出したコマンドの返した値となりますが、
+これでは最後のコマンドだけが特別扱いで、また、0以外の終了ステータスをシェルが返したときに、
+スクリプトの書き方がまずかったのか、コマンドがエラーを返したのか、
+外から区別がつきません。また、これは条件分岐のときにも文法エラーとしてスクリプトを止めるのか、
+コマンドの終了ステータスに応じて分岐させるのかという判断も困難にします。
+GlueLangでは、この問題を解決します。</p>
+<p>　次は、終了ステータスの一覧です。</p>
+<table border="1" class="docutils" id="id5">
+<caption><span class="caption-text">終了ステータス</span><a class="headerlink" href="#id5" title="このテーブルへのパーマリンク">¶</a></caption>
+<colgroup>
+<col width="67%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">状況</th>
+<th class="head">終了ステータス</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>コマンドが0以外の終了ステータスを返した</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>コマンドが見つからない</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td>変数などが未定義</td>
+<td>3</td>
+</tr>
+<tr class="row-odd"><td>シグナルによる終了</td>
+<td>128+シグナル番号</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h2>10.2. エラーの表示<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　エラーが起こると、エラーの箇所と付随情報が表示されます。
 次の例はdiffを単体で呼び出した時のエラー表示です。</p>
 <ul class="simple">
@@ -73,8 +111,8 @@ Execution error at line 3, char 1
 エラーの起きたシェルのレベル（この場合は最上位の0）、
 コマンドの終了ステータス（2）が表示されています。</p>
 </div>
-<div class="section" id="id3">
-<h2>10.2. 終了ステータス<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id4">
+<h2>10.3. 終了ステータス<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　GlueLangはsh系のシェルと異なり、
 コマンドの終了ステータスをそのまま返すことはしません。
 例えば、次の例では先ほどのスクリプトを実行した後に終了ステータスを確認していますが、
@@ -156,8 +194,9 @@ Execution error at line 8, char 1
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">10. エラー処理</a><ul>
-<li><a class="reference internal" href="#id2">10.1. エラーの表示</a></li>
-<li><a class="reference internal" href="#id3">10.2. 終了ステータス</a></li>
+<li><a class="reference internal" href="#id2">10.1. 終了ステータス（まだ実装は不十分）</a></li>
+<li><a class="reference internal" href="#id3">10.2. エラーの表示</a></li>
+<li><a class="reference internal" href="#id4">10.3. 終了ステータス</a></li>
 </ul>
 </li>
 </ul>
