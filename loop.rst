@@ -73,6 +73,53 @@ Fig.: loop_as_while.glue
 
 　ネストが2段になりますが、shやbashのwhileよりも長く条件となるコマンドが書けます。だいたい、while hogehoge ; do …という書き方が、hogehogeという部分をコマンドだと気づかない初心者を量産しており悪い影響を与えているので、踏襲はしていません。
 
+
+foreachブロック
+===============================
+
+　bashのwhileは標準入力から字を受け付けます。
+readと組み合わせると次のように使えます。
+
+.. code-block:: bash
+        :linenos:
+
+	###こんなスクリプト###
+	$ cat hoge.bash
+	#!/bin/bash
+	 
+	seq 1 3 |
+	while read a ; do
+	    echo "@" $a
+	done
+	###こんな出力###
+	$ ./hoge.bash
+	@ 1
+	@ 2
+	@ 3
+
+　GlueLangでは、foreachブロックを使うことで、
+同様の処理が実装できます。
+次の例のように、argv配列に読み込んだ文字列が格納されます。
+
+Fig.: foreach_simple.glue 
+
+.. code-block:: bash
+        :linenos:
+
+	import PATH 
+	
+	#一つずつ数字をforeachに入力
+	seq 1 3 >>= foreach
+	  echo '@' argv[1]
+	
+	#2列でforeachに入力
+	seq 1 4 >>= xargs -n 2 >>= foreach
+	  str f1 = echo argv[1]
+	  str f2 = echo argv[2]
+	  echo f1 f2
+
+
+
 内部コマンドによる繰り返し（廃止予定）
 ==============================================================
 
@@ -166,6 +213,8 @@ repeatの場合は即止まります。
 
 制御演算子の案
 ===============================
+
+（とりあえずこういう考え方もあるということで残しておきます。）
 
 　演算子として繰り返しを実装する方法について書いておきます。
 ``xargs(1)`` 等を使いこなせばいらないような気もしますが、それは言っちゃいけないような気がします。
