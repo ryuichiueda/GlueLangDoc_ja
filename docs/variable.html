@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>3. ファイル変数・文字列変数 &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
+    <title>3. 変数 &mdash; GlueLangDoc_jp 0.0.1 ドキュメント</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -40,8 +40,9 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1>3. ファイル変数・文字列変数<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<h1>3. 変数<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
 <p>　GlueLangでは、変数の型として変数と文字列が定義されています。</p>
+<p>（メモ: 全般的に変数の管理の実装が混乱気味なので、リファクタリングが必要。）</p>
 <div class="section" id="id2">
 <h2>3.1. ファイル変数<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　GlueLangではファイルを <code class="docutils literal"><span class="pre">/etc/passwd</span></code> のようなパスの文字列の他、変数として扱うことができます。次の例は変数 <code class="docutils literal"><span class="pre">f</span></code> を定義しており、 <code class="docutils literal"><span class="pre">f</span></code> はファイルとして振舞います。</p>
@@ -63,13 +64,57 @@ cat f                             <span class="c">#fをcatで出力</span>
 <h2>3.2. 文字列変数<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　文字列変数は <code class="docutils literal"><span class="pre">str</span> <span class="pre">名前</span></code> で定義します。次の例からは、上のfile1.glueと同じ出力が得られますが、 <code class="docutils literal"><span class="pre">s</span></code> の内容はGlueLang内のメモリに格納されます。</p>
 <p>Fig.: str1.glue</p>
-<div class="highlight-bash"><div class="highlight"><pre>import PATH
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
 
 str <span class="nv">s</span> <span class="o">=</span> head -n <span class="m">1</span> <span class="s1">&#39;/etc/hosts&#39;</span>
 
 <span class="nb">echo </span>s
 </pre></div>
+</td></tr></table></div>
 </div>
+<div class="section" id="where">
+<h2>3.3. where句<a class="headerlink" href="#where" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　特定の処理だけに使いたい変数は、where句の中に定義することで作ることができます。
+次の例は、ファイルa, bをwhere句の中で定義してdiffで比較している例です。
+where句の中の変数はlocalという接頭語をつけることで利用できます。
+実行結果は省略します。</p>
+<p>Fig.: where.glue</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
+
+<span class="c"># &quot;file a = ...&quot; and &quot;file b&quot; = ... are evaluated before &quot;diff a b&quot;</span>
+diff local.a local.b
+  where
+    file <span class="nv">a</span> <span class="o">=</span> seq 10
+    file <span class="nv">b</span> <span class="o">=</span> seq 10
+</pre></div>
+</td></tr></table></div>
+<p>　where句の機能は、bashのコマンド置換の代わりに使うことを意図して実装したものです。
+コマンドで作った長い文字列を別のコマンドの引数に渡すときに、すっきりした記述ができます。
+ただ、まだ文字列変数をwhere句で使えないので、次の例は動きません。</p>
+<p>Fig.: where_args.glue</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
+
+<span class="c">#passwdファイルの一番下のユーザの名前でpasswdファイルをgrepする</span>
+grep local.re <span class="s1">&#39;/etc/passwd&#39;</span>
+  where
+    str <span class="nv">re</span> <span class="o">=</span> tail -n <span class="m">1</span> <span class="s1">&#39;/etc/passwd&#39;</span> &gt;&gt;<span class="o">=</span> awk <span class="s1">&#39;-F:&#39;</span> <span class="s1">&#39;{print $1}&#39;</span>
+</pre></div>
+</td></tr></table></div>
 </div>
 </div>
 
@@ -81,9 +126,10 @@ str <span class="nv">s</span> <span class="o">=</span> head -n <span class="m">1
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">目次</a></h3>
   <ul>
-<li><a class="reference internal" href="#">3. ファイル変数・文字列変数</a><ul>
+<li><a class="reference internal" href="#">3. 変数</a><ul>
 <li><a class="reference internal" href="#id2">3.1. ファイル変数</a></li>
 <li><a class="reference internal" href="#id3">3.2. 文字列変数</a></li>
+<li><a class="reference internal" href="#where">3.3. where句</a></li>
 </ul>
 </li>
 </ul>
@@ -99,7 +145,7 @@ str <span class="nv">s</span> <span class="o">=</span> head -n <span class="m">1
   <div role="note" aria-label="source link">
     <h3>このページ</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/file_str.txt"
+      <li><a href="_sources/variable.txt"
             rel="nofollow">ソースコードを表示</a></li>
     </ul>
    </div>
@@ -128,7 +174,7 @@ str <span class="nv">s</span> <span class="o">=</span> head -n <span class="m">1
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
-      <a href="_sources/file_str.txt"
+      <a href="_sources/variable.txt"
           rel="nofollow">Page source</a>
     </div>
 

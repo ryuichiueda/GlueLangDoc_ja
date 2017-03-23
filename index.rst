@@ -19,7 +19,7 @@ Contents:
 
    introduction
    command
-   file_str
+   variable
    shebang_comment 
    connection
    procedure
