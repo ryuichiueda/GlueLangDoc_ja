@@ -10,6 +10,7 @@
 
 * GlueLangのリポジトリ: https://github.com/ryuichiueda/GlueLang
 * このドキュメントのリポジトリ: https://github.com/ryuichiueda/GlueLangDoc_ja
+* GlueLangの実装についての解説: https://ryuichiueda.github.io/GlueLangArch_ja
 
 Contents:
 
