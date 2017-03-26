@@ -153,7 +153,7 @@ b
 </div>
 </div>
 <div class="section" id="then">
-<h2>5.4. Then記号（未実装）<a class="headerlink" href="#then" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<h2>5.4. Then記号<a class="headerlink" href="#then" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　 <code class="docutils literal"><span class="pre">?&gt;</span></code> はthenを表します。
 then記号の左側にあるコマンドが成功すると、右側のコマンドが実行されて、
 さらにそれ以後にANDやORでコマンドがつながっていても実行されません。
@@ -254,6 +254,7 @@ b
 <div class="section" id="id7">
 <h3>5.5.3. スコープ<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>　doブロックの中で定義した変数はdoブロックの中でのみ有効です。
+doブロックの処理は本体とは別のプロセスで動作するからです。
 次の例はdoブロックの中で定義したファイル変数fを、
 doブロックの外で使った例です。</p>
 <ul class="simple">
@@ -323,7 +324,7 @@ str <span class="nv">s</span> <span class="o">=</span> <span class="s1">&#39;ア
 <li><a class="reference internal" href="#id3">5.3.1. バグ</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#then">5.4. Then記号（未実装）</a><ul>
+<li><a class="reference internal" href="#then">5.4. Then記号</a><ul>
 <li><a class="reference internal" href="#id4">5.4.1. メモ</a></li>
 </ul>
 </li>
