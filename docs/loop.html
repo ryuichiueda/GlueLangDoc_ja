@@ -41,15 +41,15 @@
             
   <div class="section" id="id1">
 <h1>9. ループ<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
-<div class="section" id="loop-while">
-<h2>9.1. loopブロック（whileに変わりました）<a class="headerlink" href="#loop-while" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>　loopブロックは、コマンドが0以外の終了ステータスを返すまで、
+<div class="section" id="while">
+<h2>9.1. whileブロック<a class="headerlink" href="#while" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>　whileブロックは、コマンドが0以外の終了ステータスを返すまで、
 無限にブロック内の制御を繰り返します。</p>
 <div class="section" id="id2">
 <h3>9.1.1. シンプルな使い方<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>　この例は、dateにUnix時刻を吐かせて、5で割り切れる数になったらループを抜ける処理です。
 testコマンドが0でない終了ステータスを返したのを受けてループが終わって最終行のechoが実行されます。</p>
-<p>Fig.: simple_loop.glue</p>
+<p>Fig.: simple_while.glue</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -60,7 +60,7 @@ testコマンドが0でない終了ステータスを返したのを受けてル
 8
 9</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
 
-loop
+<span class="k">while</span>
   str <span class="nv">t</span> <span class="o">=</span> date <span class="s1">&#39;+%s&#39;</span> &gt;&gt;<span class="o">=</span> awk <span class="s1">&#39;{print $1%5}&#39;</span>
   <span class="nb">echo </span>t
   <span class="nb">test </span>t -ne 0
@@ -74,7 +74,7 @@ loop
 3
 4
 5
-6</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>glue ./simple_loop.glue
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>glue ./simple_while.glue
 2
 3
 4
@@ -84,10 +84,10 @@ end
 </td></tr></table></div>
 </div>
 <div class="section" id="shwhile">
-<h3>9.1.2. sh系のシェルのwhileのような使い方<a class="headerlink" href="#shwhile" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3>9.1.2. sh系のシェルのwhileのような使い方（機能してません！！！）<a class="headerlink" href="#shwhile" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>　shやbashのように、 while &lt;コマンド&gt; ; do &lt;処理&gt; ; done と書く場合、つまりコマンドの終了ステータスで処理を実行するかしないかを決めるときは、1段インデントが深くなりますが、次のように記述できます。
 1段目のインデントが条件、そのあとのdoブロックが実行したい処理になります。</p>
-<p>Fig.: loop_as_while.glue</p>
+<p>Fig.: while_do.glue</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -98,7 +98,7 @@ end
 8
 9</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
 
-loop
+<span class="k">while</span>
   str <span class="nv">t</span> <span class="o">=</span> date <span class="s1">&#39;+%s&#39;</span> &gt;&gt;<span class="o">=</span> awk <span class="s1">&#39;{print $1%5}&#39;</span>
   <span class="nb">test </span>t -ne <span class="m">0</span> &gt;&gt; <span class="k">do</span>
     <span class="nb">echo </span>t
@@ -111,18 +111,22 @@ loop
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>glue ./loop_as_while.glue
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>glue ./while_do.glue
 3
 4
 end
 </pre></div>
 </td></tr></table></div>
-<p>　ネストが2段になりますが、shやbashのwhileよりも長く条件となるコマンドが書けます。だいたい、while hogehoge ; do …という書き方が、hogehogeという部分をコマンドだと気づかない初心者を量産しており悪い影響を与えているので、踏襲はしていません。</p>
+<p>　ネストが2段になりますが、shやbashのwhileよりも長く条件となるコマンドが書けます。
+while hogehoge ; do …という書き方が、
+hogehogeという部分をコマンドだと気づかない初心者を量産しており悪い影響を与えているので、
+踏襲はしていません。</p>
 </div>
 </div>
 <div class="section" id="foreach">
 <h2>9.2. foreachブロック<a class="headerlink" href="#foreach" title="このヘッドラインへのパーマリンク">¶</a></h2>
-<p>　bashのwhileは標準入力から字を受け付けます。
+<p>　bashのwhileは標準入力から字を受け付けますが、
+GlueLangではforeachブロックがこの機能を持っています。
 readと組み合わせると次のように使えます。</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
@@ -242,8 +246,8 @@ aaa
 </pre></div>
 </td></tr></table></div>
 </div>
-<div class="section" id="while">
-<h3>9.3.2. while<a class="headerlink" href="#while" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id4">
+<h3>9.3.2. while<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>　whileは手続きが失敗するまでその手続きを実行します。
 今のところ手続きだけを処理対象の引数としてとります。
 次の例は、 <code class="docutils literal"><span class="pre">date(1)</span></code> でUNIX時刻を出力して、
@@ -289,13 +293,13 @@ OK
 </td></tr></table></div>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>9.4. 制御演算子の案<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id5">
+<h2>9.4. 制御演算子の案<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>（とりあえずこういう考え方もあるということで残しておきます。）</p>
 <p>　演算子として繰り返しを実装する方法について書いておきます。
 <code class="docutils literal"><span class="pre">xargs(1)</span></code> 等を使いこなせばいらないような気もしますが、それは言っちゃいけないような気がします。</p>
-<div class="section" id="id5">
-<h3>9.4.1. while文<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="section" id="id6">
+<h3>9.4.1. while文<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>　 <code class="docutils literal"><span class="pre">&lt;?&gt;</span></code> はHaskellの記号と紛らわしいので <code class="docutils literal"><span class="pre">&lt;&gt;</span></code> でもよいかもしれない。</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="c">###Aが終了ステータス0の間、Bを実行###</span>
 A &lt;?&gt; B
@@ -327,19 +331,19 @@ A &lt;?&gt; B
   <h3><a href="index.html">目次</a></h3>
   <ul>
 <li><a class="reference internal" href="#">9. ループ</a><ul>
-<li><a class="reference internal" href="#loop-while">9.1. loopブロック（whileに変わりました）</a><ul>
+<li><a class="reference internal" href="#while">9.1. whileブロック</a><ul>
 <li><a class="reference internal" href="#id2">9.1.1. シンプルな使い方</a></li>
-<li><a class="reference internal" href="#shwhile">9.1.2. sh系のシェルのwhileのような使い方</a></li>
+<li><a class="reference internal" href="#shwhile">9.1.2. sh系のシェルのwhileのような使い方（機能してません！！！）</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#foreach">9.2. foreachブロック</a></li>
 <li><a class="reference internal" href="#id3">9.3. 内部コマンドによる繰り返し（廃止予定）</a><ul>
 <li><a class="reference internal" href="#repeat">9.3.1. repeat</a></li>
-<li><a class="reference internal" href="#while">9.3.2. while</a></li>
+<li><a class="reference internal" href="#id4">9.3.2. while</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">9.4. 制御演算子の案</a><ul>
-<li><a class="reference internal" href="#id5">9.4.1. while文</a></li>
+<li><a class="reference internal" href="#id5">9.4. 制御演算子の案</a><ul>
+<li><a class="reference internal" href="#id6">9.4.1. while文</a></li>
 <li><a class="reference internal" href="#for">9.4.2. for文</a></li>
 </ul>
 </li>

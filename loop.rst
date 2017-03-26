@@ -2,10 +2,10 @@
 ループ
 ===============================
 
-loopブロック（whileに変わりました）
+whileブロック
 ===============================
 
-　loopブロックは、コマンドが0以外の終了ステータスを返すまで、
+　whileブロックは、コマンドが0以外の終了ステータスを返すまで、
 無限にブロック内の制御を繰り返します。
 
 シンプルな使い方
@@ -15,14 +15,14 @@ loopブロック（whileに変わりました）
 testコマンドが0でない終了ステータスを返したのを受けてループが終わって最終行のechoが実行されます。
 
 
-Fig.: simple_loop.glue
+Fig.: simple_while.glue
 
 .. code-block:: bash
         :linenos:
 
 	import PATH
 	 
-	loop
+        while	
 	  str t = date '+%s' >>= awk '{print $1%5}'
 	  echo t
 	  test t -ne 0
@@ -33,27 +33,27 @@ Fig.: simple_loop.glue
 .. code-block:: bash
         :linenos:
 
-	$ glue ./simple_loop.glue 
+	$ glue ./simple_while.glue 
 	2
 	3
 	4
 	0
 	end
 
-sh系のシェルのwhileのような使い方
+sh系のシェルのwhileのような使い方（機能してません！！！）
 ------------------------------------------
 
 　shやbashのように、 while <コマンド> ; do <処理> ; done と書く場合、つまりコマンドの終了ステータスで処理を実行するかしないかを決めるときは、1段インデントが深くなりますが、次のように記述できます。
 1段目のインデントが条件、そのあとのdoブロックが実行したい処理になります。
 
-Fig.: loop_as_while.glue
+Fig.: while_do.glue
 
 .. code-block:: bash
         :linenos:
 
 	import PATH
 	 
-	loop
+        while	
 	  str t = date '+%s' >>= awk '{print $1%5}'
 	  test t -ne 0 >> do
 	    echo t
@@ -66,18 +66,22 @@ Fig.: loop_as_while.glue
 .. code-block:: bash
         :linenos:
 
-	$ glue ./loop_as_while.glue 
+	$ glue ./while_do.glue 
 	3
 	4
 	end
 
-　ネストが2段になりますが、shやbashのwhileよりも長く条件となるコマンドが書けます。だいたい、while hogehoge ; do …という書き方が、hogehogeという部分をコマンドだと気づかない初心者を量産しており悪い影響を与えているので、踏襲はしていません。
+　ネストが2段になりますが、shやbashのwhileよりも長く条件となるコマンドが書けます。
+while hogehoge ; do …という書き方が、
+hogehogeという部分をコマンドだと気づかない初心者を量産しており悪い影響を与えているので、
+踏襲はしていません。
 
 
 foreachブロック
 ===============================
 
-　bashのwhileは標準入力から字を受け付けます。
+　bashのwhileは標準入力から字を受け付けますが、
+GlueLangではforeachブロックがこの機能を持っています。
 readと組み合わせると次のように使えます。
 
 .. code-block:: bash
