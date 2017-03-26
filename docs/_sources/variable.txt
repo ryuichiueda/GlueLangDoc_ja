@@ -60,7 +60,7 @@ Fig.: where.glue
             file a = seq 10
 	    file b = seq 9
 
-　実行すると、後ろで定義したaとbがdiffで使えることが分かります。
+実行すると、後ろで定義したaとbがdiffで使えることが分かります。
 
 .. code-block:: bash
 	:linenos:
@@ -70,26 +70,7 @@ Fig.: where.glue
 	< 10
 	different!!!
 
-　where句の中で定義した変数等は、そのwhere句を持つジョブ内でのみ有効です。
-次のコード例では、実行すると ``cat a`` でファイルaが存在しないとエラーが出ます。
-
-* Fig.: where_scope.glue
-
-.. code-block:: bash
-	:linenos:
-
-	$ cat where_scope.glue 
-	import PATH
-	
-	diff a b !> echo 'different!!!'
-	  where          
-	    file a = seq 10
-	    file b = seq 9
-	
-	cat a
-
-
-　where句の機能は、bashのコマンド置換の代わりに使うことを意図して実装したものです。
+　また、bashのコマンド置換の代わりに使うこともできます。
 コマンドで作った長い文字列を別のコマンドの引数に渡すときに、すっきりした記述ができます。
 
 Fig.: where_args.glue 
@@ -110,3 +91,77 @@ Macで実行した結果を示します。
 
 	$ glue ./where_args.glue 
 	_wwwproxy:*:252:252:WWW Proxy:/var/empty:/usr/bin/false
+
+where句まわりのスコープ
+-----------------------------------
+
+　where句の中で定義した変数等は、そのwhere句を持つジョブ内でのみ有効です。
+次のコード例では、実行すると ``cat a`` でファイルaが存在しないとエラーが出ます。
+
+* Fig.: where_scope.glue
+
+.. code-block:: bash
+	:linenos:
+
+	$ cat where_scope.glue 
+	import PATH
+	
+	diff a b !> echo 'different!!!'
+	  where          
+	    file a = seq 10
+	    file b = seq 9
+	
+	cat a
+
+.. code-block:: bash
+	:linenos:
+
+	$ glue ./where_scope.glue 
+	10d9
+	< 10
+	different!!!
+	
+	Execution error at line 8, char 5
+		line8: cat a
+		           ^
+	
+		Variable a not found
+		
+		process_level 0
+		exit_status 3
+		pid 94404
+
+　ジョブの外とwhere句の中に同じ名前の変数があるときは、
+where句の中のものが優先されます。
+ただし、別の名前をつけることを推奨します。
+次の例は、ファイルaが二つ定義されています。
+
+Fig.: where_scope2.glue 
+
+.. code-block:: bash
+	:linenos:
+	
+	import PATH
+	
+	file a = seq 2
+	
+	diff a b !> echo 'different!!!'
+	  where          
+	    file a = seq 10
+	    file b = seq 9
+	
+	cat a
+
+ジョブの中では ``file a = seq 10`` のファイルaが使われ、
+外では ``file a = seq 2`` の方が使われます。
+	
+.. code-block:: bash
+	:linenos:
+
+	$ glue ./where_scope2.glue 
+	10d9
+	< 10
+	different!!!
+	1
+	2
+	

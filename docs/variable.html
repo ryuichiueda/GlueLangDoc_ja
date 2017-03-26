@@ -96,7 +96,7 @@ diff a b !&gt; <span class="nb">echo</span> <span class="s1">&#39;different!!!&#
     file <span class="nv">b</span> <span class="o">=</span> seq 9
 </pre></div>
 </td></tr></table></div>
-<p>　実行すると、後ろで定義したaとbがdiffで使えることが分かります。</p>
+<p>実行すると、後ろで定義したaとbがdiffで使えることが分かります。</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
@@ -106,6 +106,29 @@ diff a b !&gt; <span class="nb">echo</span> <span class="s1">&#39;different!!!&#
 different!!!
 </pre></div>
 </td></tr></table></div>
+<p>　また、bashのコマンド置換の代わりに使うこともできます。
+コマンドで作った長い文字列を別のコマンドの引数に渡すときに、すっきりした記述ができます。</p>
+<p>Fig.: where_args.glue</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
+
+<span class="c">#passwdファイルの一番下のユーザの名前でpasswdファイルをgrepする</span>
+grep local.re <span class="s1">&#39;/etc/passwd&#39;</span>
+  where
+    str <span class="nv">re</span> <span class="o">=</span> tail -n <span class="m">1</span> <span class="s1">&#39;/etc/passwd&#39;</span> &gt;&gt;<span class="o">=</span> awk <span class="s1">&#39;-F:&#39;</span> <span class="s1">&#39;{print $1}&#39;</span>
+</pre></div>
+</td></tr></table></div>
+<p>Macで実行した結果を示します。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue ./where_args.glue
+_wwwproxy:*:252:252:WWW Proxy:/var/empty:/usr/bin/false
+</pre></div>
+</div>
+<div class="section" id="id4">
+<h3>3.3.1. where句まわりのスコープ<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>　where句の中で定義した変数等は、そのwhere句を持つジョブ内でのみ有効です。
 次のコード例では、実行すると <code class="docutils literal"><span class="pre">cat</span> <span class="pre">a</span></code> でファイルaが存在しないとエラーが出ます。</p>
 <ul class="simple">
@@ -130,26 +153,76 @@ diff a b !&gt; <span class="nb">echo</span> <span class="s1">&#39;different!!!&#
 cat a
 </pre></div>
 </td></tr></table></div>
-<p>　where句の機能は、bashのコマンド置換の代わりに使うことを意図して実装したものです。
-コマンドで作った長い文字列を別のコマンドの引数に渡すときに、すっきりした記述ができます。</p>
-<p>Fig.: where_args.glue</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>glue ./where_scope.glue
+10d9
+&lt; 10
+different!!!
+
+Execution error at line 8, char 5
+        line8: cat a
+                   ^
+
+        Variable a not found
+
+        process_level 0
+        exit_status 3
+        pid 94404
+</pre></div>
+</td></tr></table></div>
+<p>　ジョブの外とwhere句の中に同じ名前の変数があるときは、
+where句の中のものが優先されます。
+ただし、別の名前をつけることを推奨します。
+次の例は、ファイルaが二つ定義されています。</p>
+<p>Fig.: where_scope2.glue</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
+
+file <span class="nv">a</span> <span class="o">=</span> seq 2
+
+diff a b !&gt; <span class="nb">echo</span> <span class="s1">&#39;different!!!&#39;</span>
+  where
+    file <span class="nv">a</span> <span class="o">=</span> seq 10
+    file <span class="nv">b</span> <span class="o">=</span> seq 9
+
+cat a
+</pre></div>
+</td></tr></table></div>
+<p>ジョブの中では <code class="docutils literal"><span class="pre">file</span> <span class="pre">a</span> <span class="pre">=</span> <span class="pre">seq</span> <span class="pre">10</span></code> のファイルaが使われ、
+外では <code class="docutils literal"><span class="pre">file</span> <span class="pre">a</span> <span class="pre">=</span> <span class="pre">seq</span> <span class="pre">2</span></code> の方が使われます。</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
 5
-6</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
-
-<span class="c">#passwdファイルの一番下のユーザの名前でpasswdファイルをgrepする</span>
-grep local.re <span class="s1">&#39;/etc/passwd&#39;</span>
-  where
-    str <span class="nv">re</span> <span class="o">=</span> tail -n <span class="m">1</span> <span class="s1">&#39;/etc/passwd&#39;</span> &gt;&gt;<span class="o">=</span> awk <span class="s1">&#39;-F:&#39;</span> <span class="s1">&#39;{print $1}&#39;</span>
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>glue ./where_scope2.glue
+10d9
+&lt; 10
+different!!!
+1
+2
 </pre></div>
 </td></tr></table></div>
-<p>Macで実行した結果を示します。</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue ./where_args.glue
-_wwwproxy:*:252:252:WWW Proxy:/var/empty:/usr/bin/false
-</pre></div>
 </div>
 </div>
 </div>
@@ -165,7 +238,10 @@ _wwwproxy:*:252:252:WWW Proxy:/var/empty:/usr/bin/false
 <li><a class="reference internal" href="#">3. 変数</a><ul>
 <li><a class="reference internal" href="#id2">3.1. ファイル変数</a></li>
 <li><a class="reference internal" href="#id3">3.2. 文字列変数</a></li>
-<li><a class="reference internal" href="#where">3.3. where句</a></li>
+<li><a class="reference internal" href="#where">3.3. where句</a><ul>
+<li><a class="reference internal" href="#id4">3.3.1. where句まわりのスコープ</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
