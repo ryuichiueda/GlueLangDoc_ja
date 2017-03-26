@@ -79,9 +79,7 @@ str <span class="nv">s</span> <span class="o">=</span> head -n <span class="m">1
 <div class="section" id="where">
 <h2>3.3. where句<a class="headerlink" href="#where" title="このヘッドラインへのパーマリンク">¶</a></h2>
 <p>　特定の処理だけに使いたい変数は、where句の中に定義することで作ることができます。
-次の例は、ファイルa, bをwhere句の中で定義してdiffで比較している例です。
-where句の中の変数はlocalという接頭語をつけることで利用できます。
-実行結果は省略します。</p>
+次の例は、ファイルa, bをwhere句の中で定義してdiffで比較している例です。</p>
 <p>Fig.: where.glue</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
@@ -92,15 +90,48 @@ where句の中の変数はlocalという接頭語をつけることで利用で�
 7</pre></div></td><td class="code"><div class="highlight"><pre>import PATH
 
 <span class="c"># &quot;file a = ...&quot; and &quot;file b&quot; = ... are evaluated before &quot;diff a b&quot;</span>
-diff local.a local.b
+diff a b !&gt; <span class="nb">echo</span> <span class="s1">&#39;different!!!&#39;</span>
   where
     file <span class="nv">a</span> <span class="o">=</span> seq 10
-    file <span class="nv">b</span> <span class="o">=</span> seq 10
+    file <span class="nv">b</span> <span class="o">=</span> seq 9
+</pre></div>
+</td></tr></table></div>
+<p>　実行すると、後ろで定義したaとbがdiffで使えることが分かります。</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>glue ./where.glue
+10d9
+&lt; 10
+different!!!
+</pre></div>
+</td></tr></table></div>
+<p>　where句の中で定義した変数等は、そのwhere句を持つジョブ内でのみ有効です。
+次のコード例では、実行すると <code class="docutils literal"><span class="pre">cat</span> <span class="pre">a</span></code> でファイルaが存在しないとエラーが出ます。</p>
+<ul class="simple">
+<li>Fig.: where_scope.glue</li>
+</ul>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>cat where_scope.glue
+import PATH
+
+diff a b !&gt; <span class="nb">echo</span> <span class="s1">&#39;different!!!&#39;</span>
+  where
+    file <span class="nv">a</span> <span class="o">=</span> seq 10
+    file <span class="nv">b</span> <span class="o">=</span> seq 9
+
+cat a
 </pre></div>
 </td></tr></table></div>
 <p>　where句の機能は、bashのコマンド置換の代わりに使うことを意図して実装したものです。
-コマンドで作った長い文字列を別のコマンドの引数に渡すときに、すっきりした記述ができます。
-ただ、まだ文字列変数をwhere句で使えないので、次の例は動きません。</p>
+コマンドで作った長い文字列を別のコマンドの引数に渡すときに、すっきりした記述ができます。</p>
 <p>Fig.: where_args.glue</p>
 <div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
@@ -115,6 +146,11 @@ grep local.re <span class="s1">&#39;/etc/passwd&#39;</span>
     str <span class="nv">re</span> <span class="o">=</span> tail -n <span class="m">1</span> <span class="s1">&#39;/etc/passwd&#39;</span> &gt;&gt;<span class="o">=</span> awk <span class="s1">&#39;-F:&#39;</span> <span class="s1">&#39;{print $1}&#39;</span>
 </pre></div>
 </td></tr></table></div>
+<p>Macで実行した結果を示します。</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>glue ./where_args.glue
+_wwwproxy:*:252:252:WWW Proxy:/var/empty:/usr/bin/false
+</pre></div>
+</div>
 </div>
 </div>
 

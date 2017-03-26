@@ -46,8 +46,6 @@ where句
 
 　特定の処理だけに使いたい変数は、where句の中に定義することで作ることができます。
 次の例は、ファイルa, bをwhere句の中で定義してdiffで比較している例です。
-where句の中の変数はlocalという接頭語をつけることで利用できます。
-実行結果は省略します。
 
 Fig.: where.glue 
 
@@ -57,14 +55,42 @@ Fig.: where.glue
 	import PATH
 	
 	# "file a = ..." and "file b" = ... are evaluated before "diff a b"
-	diff local.a local.b
+	diff a b !> echo 'different!!!'
 	  where
             file a = seq 10
-	    file b = seq 10
+	    file b = seq 9
+
+　実行すると、後ろで定義したaとbがdiffで使えることが分かります。
+
+.. code-block:: bash
+	:linenos:
+
+	$ glue ./where.glue 
+	10d9
+	< 10
+	different!!!
+
+　where句の中で定義した変数等は、そのwhere句を持つジョブ内でのみ有効です。
+次のコード例では、実行すると ``cat a`` でファイルaが存在しないとエラーが出ます。
+
+* Fig.: where_scope.glue
+
+.. code-block:: bash
+	:linenos:
+
+	$ cat where_scope.glue 
+	import PATH
+	
+	diff a b !> echo 'different!!!'
+	  where          
+	    file a = seq 10
+	    file b = seq 9
+	
+	cat a
+
 
 　where句の機能は、bashのコマンド置換の代わりに使うことを意図して実装したものです。
 コマンドで作った長い文字列を別のコマンドの引数に渡すときに、すっきりした記述ができます。
-ただ、まだ文字列変数をwhere句で使えないので、次の例は動きません。
 
 Fig.: where_args.glue 
 
@@ -77,3 +103,10 @@ Fig.: where_args.glue
 	grep local.re '/etc/passwd'
 	  where
 	    str re = tail -n 1 '/etc/passwd' >>= awk '-F:' '{print $1}'
+
+Macで実行した結果を示します。
+
+.. code-block:: bash
+
+	$ glue ./where_args.glue 
+	_wwwproxy:*:252:252:WWW Proxy:/var/empty:/usr/bin/false
