@@ -84,7 +84,7 @@ end
 </td></tr></table></div>
 </div>
 <div class="section" id="shwhile">
-<h3>9.1.2. sh系のシェルのwhileのような使い方（機能してません！！！）<a class="headerlink" href="#shwhile" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<h3>9.1.2. sh系のシェルのwhileのような使い方<a class="headerlink" href="#shwhile" title="このヘッドラインへのパーマリンク">¶</a></h3>
 <p>　shやbashのように、 while &lt;コマンド&gt; ; do &lt;処理&gt; ; done と書く場合、つまりコマンドの終了ステータスで処理を実行するかしないかを決めるときは、1段インデントが深くなりますが、次のように記述できます。
 1段目のインデントが条件、そのあとのdoブロックが実行したい処理になります。</p>
 <p>Fig.: while_do.glue</p>
@@ -100,7 +100,7 @@ end
 
 <span class="k">while</span>
   str <span class="nv">t</span> <span class="o">=</span> date <span class="s1">&#39;+%s&#39;</span> &gt;&gt;<span class="o">=</span> awk <span class="s1">&#39;{print $1%5}&#39;</span>
-  <span class="nb">test </span>t -ne <span class="m">0</span> &gt;&gt; <span class="k">do</span>
+  <span class="nb">test </span>t -ne <span class="m">0</span> ?&gt; <span class="k">do</span>
     <span class="nb">echo </span>t
     sleep 1
 
@@ -121,6 +121,44 @@ end
 while hogehoge ; do …という書き方が、
 hogehogeという部分をコマンドだと気づかない初心者を量産しており悪い影響を与えているので、
 踏襲はしていません。</p>
+<p>　また、 <code class="docutils literal"><span class="pre">?&gt;</span></code> でエラーが起きたときは、スクリプトが即時に止まります。
+終了ステータスは（この例では表示されていませんが）8です。</p>
+<p>Fig.: while_do.glueのthenの後にfalseを挟んで実行した時の様子</p>
+<div class="highlight-bash"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>glue ./while_do_error.glue
+
+Execution error at line 3, char 1
+        line3: <span class="k">while</span>
+               ^
+        line4:   str <span class="nv">t</span> <span class="o">=</span> date <span class="s1">&#39;+%s&#39;</span> &gt;&gt;<span class="o">=</span> awk <span class="s1">&#39;{print $1%5}&#39;</span>
+        line5:   <span class="nb">test </span>t -ne <span class="m">0</span> ?&gt; <span class="k">do</span>
+        line6:     <span class="nb">false</span>
+<span class="nb">        </span>line7:     <span class="nb">echo </span>t
+        line8:     sleep 1
+        line9:
+
+        Command error
+
+        process_level 0
+        exit_status 8
+        pid 5016
+</pre></div>
+</td></tr></table></div>
 </div>
 </div>
 <div class="section" id="foreach">
@@ -333,7 +371,7 @@ A &lt;?&gt; B
 <li><a class="reference internal" href="#">9. ループ</a><ul>
 <li><a class="reference internal" href="#while">9.1. whileブロック</a><ul>
 <li><a class="reference internal" href="#id2">9.1.1. シンプルな使い方</a></li>
-<li><a class="reference internal" href="#shwhile">9.1.2. sh系のシェルのwhileのような使い方（機能してません！！！）</a></li>
+<li><a class="reference internal" href="#shwhile">9.1.2. sh系のシェルのwhileのような使い方</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#foreach">9.2. foreachブロック</a></li>

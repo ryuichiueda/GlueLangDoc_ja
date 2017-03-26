@@ -40,7 +40,7 @@ Fig.: simple_while.glue
 	0
 	end
 
-sh系のシェルのwhileのような使い方（機能してません！！！）
+sh系のシェルのwhileのような使い方
 ------------------------------------------
 
 　shやbashのように、 while <コマンド> ; do <処理> ; done と書く場合、つまりコマンドの終了ステータスで処理を実行するかしないかを決めるときは、1段インデントが深くなりますが、次のように記述できます。
@@ -55,7 +55,7 @@ Fig.: while_do.glue
 	 
         while	
 	  str t = date '+%s' >>= awk '{print $1%5}'
-	  test t -ne 0 >> do
+	  test t -ne 0 ?> do
 	    echo t
 	    sleep 1
 	 
@@ -75,6 +75,33 @@ Fig.: while_do.glue
 while hogehoge ; do …という書き方が、
 hogehogeという部分をコマンドだと気づかない初心者を量産しており悪い影響を与えているので、
 踏襲はしていません。
+
+　また、 ``?>`` でエラーが起きたときは、スクリプトが即時に止まります。
+終了ステータスは（この例では表示されていませんが）8です。
+
+
+Fig.: while_do.glueのthenの後にfalseを挟んで実行した時の様子
+
+.. code-block:: bash
+	:linenos:
+
+	$ glue ./while_do_error.glue 
+	
+	Execution error at line 3, char 1
+		line3: while
+		       ^
+		line4:   str t = date '+%s' >>= awk '{print $1%5}'
+		line5:   test t -ne 0 ?> do
+		line6:     false
+		line7:     echo t
+		line8:     sleep 1
+		line9:  
+	
+		Command error
+		
+		process_level 0
+		exit_status 8
+		pid 5016
 
 
 foreachブロック
